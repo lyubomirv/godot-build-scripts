@@ -9,10 +9,15 @@ export OPTIONS="production=yes"
 export OPTIONS_MONO="module_mono_enabled=yes"
 export TERM=xterm
 
-rm -rf godot
-mkdir godot
-cd godot
-tar xf /root/godot.tar.gz --strip-components=1
+if [ ! -z "${PRESET_GODOT_DIR}" ]; then
+  cd $PRESET_GODOT_DIR
+  rm -rf bin
+else
+  rm -rf godot
+  mkdir godot
+  cd godot
+  tar xf /root/godot.tar.gz --strip-components=1
+fi
 
 # pkg-config wrongly points to lib instead of lib64 for arch-dependent header.
 sed -i ${GODOT_SDK_LINUX_X86_64}/x86_64-godot-linux-gnu/sysroot/usr/lib/pkgconfig/dbus-1.pc -e "s@/lib@/lib64@g"

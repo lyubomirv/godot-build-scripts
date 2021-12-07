@@ -22,10 +22,15 @@ export TERM=xterm
 
 source /root/emsdk/emsdk_env.sh
 
-rm -rf godot
-mkdir godot
-cd godot
-tar xf /root/godot.tar.gz --strip-components=1
+if [ ! -z "${PRESET_GODOT_DIR}" ]; then
+  cd $PRESET_GODOT_DIR
+  rm -rf bin
+else
+  rm -rf godot
+  mkdir godot
+  cd godot
+  tar xf /root/godot.tar.gz --strip-components=1
+fis
 
 # Classical
 
