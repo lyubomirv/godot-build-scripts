@@ -9,15 +9,7 @@ export OPTIONS="debug_symbols=no use_static_cpp=no"
 export TERM=xterm
 export DISPLAY=:0
 
-if [ ! -z "${PRESET_GODOT_DIR}" ]; then
-  cd $PRESET_GODOT_DIR
-  rm -rf bin
-else
-  rm -rf godot
-  mkdir godot
-  cd godot
-  tar xf /root/godot.tar.gz --strip-components=1
-fi
+source /root/common/prep.sh
 
 # Mono
 

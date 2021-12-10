@@ -9,15 +9,7 @@ export OPTIONS="production=yes"
 export OPTIONS_MONO="module_mono_enabled=yes mono_static=no"
 export TERM=xterm
 
-if [ ! -z "${PRESET_GODOT_DIR}" ]; then
-  cd $PRESET_GODOT_DIR
-  rm -rf bin
-else
-  rm -rf godot
-  mkdir godot
-  cd godot
-  tar xf /root/godot.tar.gz --strip-components=1
-fi
+source /root/common/prep.sh
 
 dnf install -y java-11-openjdk-devel
 java --version
