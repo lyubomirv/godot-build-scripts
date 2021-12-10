@@ -10,15 +10,7 @@ export TERM=xterm
 export DISPLAY=:0
 export PATH="${GODOT_SDK_LINUX_X86_64}/bin:${BASE_PATH}"
 
-if [ ! -z "${PRESET_GODOT_DIR}" ]; then
-  cd $PRESET_GODOT_DIR
-  rm -rf bin
-else
-  rm -rf godot
-  mkdir godot
-  cd godot
-  tar xf /root/godot.tar.gz --strip-components=1
-fi
+source /root/common/prep.sh
 
 # pkg-config wrongly points to lib instead of lib64 for arch-dependent header.
 sed -i ${GODOT_SDK_LINUX_X86_64}/x86_64-godot-linux-gnu/sysroot/usr/lib/pkgconfig/dbus-1.pc -e "s@/lib@/lib64@g"
