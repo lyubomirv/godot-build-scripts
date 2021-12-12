@@ -2,6 +2,10 @@
 
 set -e
 
+if [ "${BUILD_TEMPLATES}" != "1" ]; then
+  exit 0
+fi
+
 # Config
 
 export SCONS="call scons -j${NUM_CORES} verbose=yes warnings=no progress=no"

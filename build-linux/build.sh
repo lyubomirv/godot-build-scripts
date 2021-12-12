@@ -21,29 +21,37 @@ if [ "${CLASSICAL}" == "1" ]; then
 
   export PATH="${GODOT_SDK_LINUX_X86_64}/bin:${BASE_PATH}"
 
-  $SCONS platform=linuxbsd arch=x86_64 $OPTIONS target=editor
-  mkdir -p /root/out/x86_64/tools
-  cp -rvp bin/* /root/out/x86_64/tools
-  rm -rf bin
+  if [ "${BUILD_EDITOR_x86_64}" == "1" ]; then
+    $SCONS platform=linuxbsd arch=x86_64 $OPTIONS target=editor
+    mkdir -p /root/out/x86_64/tools
+    cp -rvp bin/* /root/out/x86_64/tools
+    rm -rf bin
+  fi
 
-  $SCONS platform=linuxbsd arch=x86_64 $OPTIONS target=template_debug
-  $SCONS platform=linuxbsd arch=x86_64 $OPTIONS target=template_release
-  mkdir -p /root/out/x86_64/templates
-  cp -rvp bin/* /root/out/x86_64/templates
-  rm -rf bin
+  if [ "${BUILD_TEMPLATES}" == "1" ]; then
+    $SCONS platform=linuxbsd arch=x86_64 $OPTIONS target=template_debug
+    $SCONS platform=linuxbsd arch=x86_64 $OPTIONS target=template_release
+    mkdir -p /root/out/x86_64/templates
+    cp -rvp bin/* /root/out/x86_64/templates
+    rm -rf bin
+  fi
 
   export PATH="${GODOT_SDK_LINUX_X86}/bin:${BASE_PATH}"
 
-  $SCONS platform=linuxbsd arch=x86_32 $OPTIONS target=editor
-  mkdir -p /root/out/x86_32/tools
-  cp -rvp bin/* /root/out/x86_32/tools
-  rm -rf bin
+  if [ "${BUILD_EDITOR_x86}" == "1" ]; then
+    $SCONS platform=linuxbsd arch=x86_32 $OPTIONS target=editor
+    mkdir -p /root/out/x86_32/tools
+    cp -rvp bin/* /root/out/x86_32/tools
+    rm -rf bin
+  fi
 
-  $SCONS platform=linuxbsd arch=x86_32 $OPTIONS target=template_debug
-  $SCONS platform=linuxbsd arch=x86_32 $OPTIONS target=template_release
-  mkdir -p /root/out/x86_32/templates
-  cp -rvp bin/* /root/out/x86_32/templates
-  rm -rf bin
+  if [ "${BUILD_TEMPLATES}" == "1" ]; then
+    $SCONS platform=linuxbsd arch=x86_32 $OPTIONS target=template_debug
+    $SCONS platform=linuxbsd arch=x86_32 $OPTIONS target=template_release
+    mkdir -p /root/out/x86_32/templates
+    cp -rvp bin/* /root/out/x86_32/templates
+    rm -rf bin
+  fi
 fi
 
 # Mono
@@ -56,31 +64,39 @@ if [ "${MONO}" == "1" ]; then
 
   export PATH="${GODOT_SDK_LINUX_X86_64}/bin:${BASE_PATH}"
 
-  $SCONS platform=linuxbsd arch=x86_64 $OPTIONS $OPTIONS_MONO target=editor
-  ./modules/mono/build_scripts/build_assemblies.py --godot-output-dir=./bin --godot-platform=linuxbsd
-  mkdir -p /root/out/x86_64/tools-mono
-  cp -rvp bin/* /root/out/x86_64/tools-mono
-  rm -rf bin
+  if [ "${BUILD_EDITOR_x86_64}" == 1 ]; then
+    $SCONS platform=linuxbsd arch=x86_64 $OPTIONS $OPTIONS_MONO target=editor
+    ./modules/mono/build_scripts/build_assemblies.py --godot-output-dir=./bin --godot-platform=linuxbsd
+    mkdir -p /root/out/x86_64/tools-mono
+    cp -rvp bin/* /root/out/x86_64/tools-mono
+    rm -rf bin
+  fi
 
-  $SCONS platform=linuxbsd arch=x86_64 $OPTIONS $OPTIONS_MONO target=template_debug
-  $SCONS platform=linuxbsd arch=x86_64 $OPTIONS $OPTIONS_MONO target=template_release
-  mkdir -p /root/out/x86_64/templates-mono
-  cp -rvp bin/* /root/out/x86_64/templates-mono
-  rm -rf bin
+  if [ "${BUILD_TEMPLATES}" == 1 ]; then
+    $SCONS platform=linuxbsd arch=x86_64 $OPTIONS $OPTIONS_MONO target=template_debug
+    $SCONS platform=linuxbsd arch=x86_64 $OPTIONS $OPTIONS_MONO target=template_release
+    mkdir -p /root/out/x86_64/templates-mono
+    cp -rvp bin/* /root/out/x86_64/templates-mono
+    rm -rf bin
+  fi
 
   export PATH="${GODOT_SDK_LINUX_X86}/bin:${BASE_PATH}"
 
-  $SCONS platform=linuxbsd arch=x86_32 $OPTIONS $OPTIONS_MONO target=editor
-  ./modules/mono/build_scripts/build_assemblies.py --godot-output-dir=./bin --godot-platform=linuxbsd
-  mkdir -p /root/out/x86_32/tools-mono
-  cp -rvp bin/* /root/out/x86_32/tools-mono
-  rm -rf bin
+  if [ "${BUILD_EDITOR_x86}" == 1 ]; then
+    $SCONS platform=linuxbsd arch=x86_32 $OPTIONS $OPTIONS_MONO target=editor
+    ./modules/mono/build_scripts/build_assemblies.py --godot-output-dir=./bin --godot-platform=linuxbsd
+    mkdir -p /root/out/x86_32/tools-mono
+    cp -rvp bin/* /root/out/x86_32/tools-mono
+    rm -rf bin
+  fi
 
-  $SCONS platform=linuxbsd arch=x86_32 $OPTIONS $OPTIONS_MONO target=template_debug
-  $SCONS platform=linuxbsd arch=x86_32 $OPTIONS $OPTIONS_MONO target=template_release
-  mkdir -p /root/out/x86_32/templates-mono
-  cp -rvp bin/* /root/out/x86_32/templates-mono
-  rm -rf bin
+  if [ "${BUILD_TEMPLATES}" == 1 ]; then
+    $SCONS platform=linuxbsd arch=x86_32 $OPTIONS $OPTIONS_MONO target=template_debug
+    $SCONS platform=linuxbsd arch=x86_32 $OPTIONS $OPTIONS_MONO target=template_release
+    mkdir -p /root/out/x86_32/templates-mono
+    cp -rvp bin/* /root/out/x86_32/templates-mono
+    rm -rf bin
+  fi
 fi
 
 echo "Linux build successful"
