@@ -2,6 +2,10 @@
 
 set -e
 
+if [ "${BUILD_SERVER}" != "1" ]; then
+  exit 0
+fi
+
 # Config
 
 export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no"
