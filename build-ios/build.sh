@@ -8,7 +8,9 @@ fi
 
 # Config
 
-export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no"
+source /root/common/prep.sh
+
+export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no ${ADDITIONAL_SCONS_PARAMS}"
 # Keep LTO disabled for iOS - it works but it makes linking apps on deploy very slow,
 # which is seen as a regression in the current workflow.
 export OPTIONS="production=yes use_lto=no"
@@ -17,8 +19,6 @@ export TERM=xterm
 
 export IOS_SDK="16.1"
 export IOS_LIPO="/root/ioscross/arm64/bin/arm-apple-darwin11-lipo"
-
-source /root/common/prep.sh
 
 # Classical
 

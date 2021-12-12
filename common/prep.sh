@@ -11,3 +11,7 @@ else
   cd godot
   tar xf /root/godot.tar.gz --strip-components=1
 fi
+
+if [ ! -z "${CUSTOM_MODULES_DIR}" ]; then
+  export ADDITIONAL_SCONS_PARAMS="custom_modules=${CUSTOM_MODULES_DIR}"
+fi

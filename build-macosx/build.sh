@@ -4,15 +4,15 @@ set -e
 
 # Config
 
-export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no"
+source /root/common/prep.sh
+
+export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no ${ADDITIONAL_SCONS_PARAMS}"
 export OPTIONS="osxcross_sdk=darwin20.2 production=yes"
 export OPTIONS_MONO="module_mono_enabled=yes mono_static=yes"
 export MONO_PREFIX_X86_64="/root/mono-installs/desktop-osx-x86_64-release"
 export MONO_PREFIX_ARM64="/root/mono-installs/desktop-osx-arm64-release"
 export STRIP="x86_64-apple-darwin20.2-strip -u -r"
 export TERM=xterm
-
-source /root/common/prep.sh
 
 # Classical
 
