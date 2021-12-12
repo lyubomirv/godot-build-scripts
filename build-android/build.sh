@@ -8,12 +8,12 @@ fi
 
 # Config
 
-export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no"
+source /root/common/prep.sh
+
+export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no ${ADDITIONAL_SCONS_PARAMS}"
 export OPTIONS="production=yes"
 export OPTIONS_MONO="module_mono_enabled=yes mono_static=no"
 export TERM=xterm
-
-source /root/common/prep.sh
 
 dnf install -y java-11-openjdk-devel
 java --version

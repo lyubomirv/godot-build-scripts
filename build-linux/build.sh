@@ -4,14 +4,14 @@ set -e
 
 # Config
 
-export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no"
+source /root/common/prep.sh
+
+export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no ${ADDITIONAL_SCONS_PARAMS}"
 export OPTIONS="production=yes"
 export OPTIONS_MONO="module_mono_enabled=yes mono_static=yes"
 export MONO_PREFIX_X86_64="/root/mono-installs/desktop-linux-x86_64-release"
 export MONO_PREFIX_X86="/root/mono-installs/desktop-linux-x86-release"
 export TERM=xterm
-
-source /root/common/prep.sh
 
 # Classical
 

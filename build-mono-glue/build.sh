@@ -4,12 +4,12 @@ set -e
 
 # Config
 
-export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no"
+source /root/common/prep.sh
+
+export SCONS="scons -j${NUM_CORES} verbose=yes warnings=no progress=no ${ADDITIONAL_SCONS_PARAMS}"
 export OPTIONS="debug_symbols=no use_static_cpp=no"
 export TERM=xterm
 export DISPLAY=:0
-
-source /root/common/prep.sh
 
 # Mono
 

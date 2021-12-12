@@ -8,12 +8,12 @@ fi
 
 # Config
 
-export SCONS="call scons -j${NUM_CORES} verbose=yes warnings=no progress=no"
+source /root/common/prep.sh
+
+export SCONS="call scons -j${NUM_CORES} verbose=yes warnings=no progress=no ${ADDITIONAL_SCONS_PARAMS}"
 export OPTIONS="production=yes"
 export BUILD_ARCHES="x86 x64 arm"
 export ANGLE_SRC_PATH='c:\angle'
-
-source /root/common/prep.sh
 
 # Classical
 
