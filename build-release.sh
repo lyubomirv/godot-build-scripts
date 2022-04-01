@@ -128,10 +128,13 @@ done
 if [ -z "${godot_version}" -o -z "${templates_version}" ]; then
   echo "Mandatory argument -v or -t missing."
   exit 1
+elif [[ "{$templates_version}" == *"-"* ]]; then
+  echo "Templates version (-t) shouldn't contain '-'. It should use a dot to separate version from status."
+  exit 1
 fi
 
 export basedir=$(pwd)
-export webdir="${basedir}/web/${godot_version}"
+export webdir="${basedir}/web/${templates_version}"
 export reldir="${basedir}/releases/${godot_version}"
 export reldir_mono="${reldir}/mono"
 export tmpdir="${basedir}/tmp"
@@ -196,20 +199,28 @@ if [ "${build_classical}" == "1" ]; then
   # Editor
   if [ -f "out/windows/x64/tools/godot.windows.opt.tools.64.exe" ]; then
     binname="${godot_basename}_win64.exe"
+    batname="${godot_basename}_win64_console.cmd"
     cp out/windows/x64/tools/godot.windows.opt.tools.64.exe ${binname}
     strip ${binname}
     sign_windows ${binname}
-    zip -q -9 "${reldir}/${binname}.zip" ${binname}
-    rm ${binname}
+    echo "@echo off" > ${batname}
+    echo ${binname} >> ${batname}
+    echo "pause > nul" >> ${batname}
+    zip -q -9 "${reldir}/${binname}.zip" ${binname} ${batname}
+    rm ${binname} ${batname}
   fi
 
   if [ -f "out/windows/x86/tools/godot.windows.opt.tools.32.exe" ]; then
     binname="${godot_basename}_win32.exe"
+    batname="${godot_basename}_win32_console.cmd"
     cp out/windows/x86/tools/godot.windows.opt.tools.32.exe ${binname}
     strip ${binname}
     sign_windows ${binname}
-    zip -q -9 "${reldir}/${binname}.zip" ${binname}
-    rm ${binname}
+    echo "@echo off" > ${batname}
+    echo ${binname} >> ${batname}
+    echo "pause > nul" >> ${batname}
+    zip -q -9 "${reldir}/${binname}.zip" ${binname} ${batname}
+    rm ${binname} ${batname}
   fi
 
   # Templates
@@ -297,6 +308,12 @@ if [ "${build_classical}" == "1" ]; then
   if [ -f "out/android/templates/godot-lib.release.aar" ]; then
     # Lib for direct download
     cp out/android/templates/godot-lib.release.aar ${reldir}/godot-lib.${templates_version}.release.aar
+
+    # Editor
+    binname="${godot_basename}_android_editor.apk"
+    if [ -f "${binname}" ]; then
+      cp out/android/tools/android_editor.apk ${reldir}/${binname}
+    fi
 
     # Templates
     cp out/android/templates/*.apk ${templatesdir}/
@@ -530,6 +547,12 @@ if [ "${build_mono}" == "1" ]; then
   if [ -f "out/android/templates-mono/godot-lib.release.aar" ]; then
     # Lib for direct download
     cp out/android/templates-mono/godot-lib.release.aar ${reldir_mono}/godot-lib.${templates_version}.mono.release.aar
+
+    # Editor
+    #binname="${godot_basename}_mono_android_editor.apk"
+    #if [ -f "${binname}" ]; then
+    #  cp out/android/tools-mono/android_editor.apk ${reldir_mono}/${binname}
+    #fi
 
     # Templates
     cp out/android/templates-mono/*.apk ${templatesdir_mono}/
