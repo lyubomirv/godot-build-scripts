@@ -35,11 +35,13 @@ if [ "${CLASSICAL}" == "1" ]; then
   cp -rvp bin/*.zip /root/out/templates
   rm -f bin/*.zip
 
-  $SCONS platform=javascript ${OPTIONS} target=release_debug tools=yes threads_enabled=yes use_closure_compiler=yes
+  if [ "${BUILD_EDITOR}" == "1" ]; then
+    $SCONS platform=javascript ${OPTIONS} target=release_debug tools=yes threads_enabled=yes use_closure_compiler=yes
 
-  mkdir -p /root/out/tools
-  cp -rvp bin/*.zip /root/out/tools
-  rm -f bin/*.zip
+    mkdir -p /root/out/tools
+    cp -rvp bin/*.zip /root/out/tools
+    rm -f bin/*.zip
+  fi
 
 fi
 

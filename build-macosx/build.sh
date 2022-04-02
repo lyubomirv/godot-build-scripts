@@ -19,7 +19,7 @@ export TERM=xterm
 if [ "${CLASSICAL}" == "1" ]; then
   echo "Starting classical build for macOS..."
 
-  if [ "${BUILD_EDITOR_x86_64}" == "1" ] || [ "${BUILD_EDITOR_x86}" == "1" ]; then
+  if [ "${BUILD_EDITOR}" == "1" ]; then
     $SCONS platform=osx $OPTIONS arch=x86_64 tools=yes target=release_debug
     $SCONS platform=osx $OPTIONS arch=arm64 tools=yes target=release_debug
     lipo -create bin/godot.osx.opt.tools.x86_64 bin/godot.osx.opt.tools.arm64 -output bin/godot.osx.opt.tools.universal
@@ -62,7 +62,7 @@ if [ "${MONO}" == "1" ]; then
   # libmono-native-compat.dylib).
   mkdir -p tmp-lib/{x86_64,arm64}
 
-  if [ "${BUILD_EDITOR_x86_64}" == "1" ] || [ "${BUILD_EDITOR_x86}" == "1" ]; then
+  if [ "${BUILD_EDITOR}" == "1" ]; then
     $SCONS platform=osx $OPTIONS $OPTIONS_MONO mono_prefix=$MONO_PREFIX_X86_64 arch=x86_64 tools=yes target=release_debug copy_mono_root=yes
     cp bin/GodotSharp/Mono/lib/*.dylib tmp-lib/x86_64/
     $SCONS platform=osx $OPTIONS $OPTIONS_MONO mono_prefix=$MONO_PREFIX_ARM64 arch=arm64 tools=yes target=release_debug copy_mono_root=yes

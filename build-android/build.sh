@@ -20,17 +20,19 @@ export TERM=xterm
 if [ "${CLASSICAL}" == "1" ]; then
   echo "Starting classical build for Android..."
 
-  $SCONS platform=android arch=arm32 $OPTIONS target=editor
-  $SCONS platform=android arch=arm64 $OPTIONS target=editor
-  $SCONS platform=android arch=x86_32 $OPTIONS target=editor
-  $SCONS platform=android arch=x86_64 $OPTIONS target=editor
+  if [ "${BUILD_EDITOR}" == "1" ]; then
+    $SCONS platform=android arch=arm32 $OPTIONS target=editor
+    $SCONS platform=android arch=arm64 $OPTIONS target=editor
+    $SCONS platform=android arch=x86_32 $OPTIONS target=editor
+    $SCONS platform=android arch=x86_64 $OPTIONS target=editor
 
-  pushd platform/android/java
-  ./gradlew generateGodotEditor
-  popd
+    pushd platform/android/java
+    ./gradlew generateGodotEditor
+    popd
 
-  mkdir -p /root/out/tools
-  cp bin/android_editor.apk /root/out/tools/
+    mkdir -p /root/out/tools
+    cp bin/android_editor.apk /root/out/tools/
+  fi
 
   $SCONS platform=android arch=arm32 $OPTIONS target=template_debug
   $SCONS platform=android arch=arm32 $OPTIONS target=template_release
