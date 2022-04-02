@@ -23,15 +23,17 @@ java --version
 if [ "${CLASSICAL}" == "1" ]; then
   echo "Starting classical build for Android..."
 
-  $SCONS platform=android android_arch=arm64v8 $OPTIONS tools=yes target=release_debug
-  $SCONS platform=android android_arch=x86_64 $OPTIONS tools=yes target=release_debug
+  if [ "${BUILD_EDITOR}" == "1" ]; then
+    $SCONS platform=android android_arch=arm64v8 $OPTIONS tools=yes target=release_debug
+    $SCONS platform=android android_arch=x86_64 $OPTIONS tools=yes target=release_debug
 
-  pushd platform/android/java
-  ./gradlew generateGodotEditor
-  popd
+    pushd platform/android/java
+    ./gradlew generateGodotEditor
+    popd
 
-  mkdir -p /root/out/tools
-  cp bin/android_editor.apk /root/out/tools/
+    mkdir -p /root/out/tools
+    cp bin/android_editor.apk /root/out/tools/
+  fi
 
   $SCONS platform=android android_arch=armv7 $OPTIONS tools=no target=release_debug
   $SCONS platform=android android_arch=armv7 $OPTIONS tools=no target=release
