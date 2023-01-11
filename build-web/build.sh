@@ -30,7 +30,7 @@ else
   mkdir godot
   cd godot
   tar xf /root/godot.tar.gz --strip-components=1
-fis
+fi
 
 # Classical
 
