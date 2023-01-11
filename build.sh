@@ -182,7 +182,7 @@ mkdir -p ${basedir}/out
 mkdir -p ${basedir}/out/logs
 mkdir -p ${basedir}/mono-glue
 
-export podman_run="${podman} run -it --rm --env BUILD_NAME --env GODOT_VERSION_STATUS --env NUM_CORES --env CLASSICAL=${build_classical} --env MONO=${build_mono} --env BUILD_EDITOR_x86_64=1 --env BUILD_EDITOR_x86=1 --env BUILD_TEMPLATES=1 --env BUILD_SERVER=1 -v ${basedir}/godot-${godot_version}.tar.gz:/root/godot.tar.gz -v ${basedir}/mono-glue:/root/mono-glue -v ${basedir}/common:/root/common -w /root/"
+export podman_run="${podman} run -it --rm --env BUILD_NAME --env GODOT_VERSION_STATUS --env NUM_CORES --env CLASSICAL=${build_classical} --env MONO=${build_mono} --env BUILD_EDITOR_x86_64=1 --env BUILD_EDITOR_x86=1 --env BUILD_TEMPLATES=1 -v ${basedir}/godot-${godot_version}.tar.gz:/root/godot.tar.gz -v ${basedir}/mono-glue:/root/mono-glue -v ${basedir}/common:/root/common -w /root/"
 export img_version=4.x-f36
 
 mkdir -p ${basedir}/mono-glue
