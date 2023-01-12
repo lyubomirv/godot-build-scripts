@@ -338,8 +338,10 @@ if [ "${build_classical}" == "1" ]; then
     cp out/android/templates/godot-lib.template_release.aar ${reldir}/godot-lib.${templates_version}.template_release.aar
 
     # Editor
-    binname="${godot_basename}_android_editor.apk"
-    cp out/android/tools/android_editor.apk ${reldir}/${binname}
+    if [ -f "out/android/tools/android_editor.apk" ]; then
+      binname="${godot_basename}_android_editor.apk"
+      cp out/android/tools/android_editor.apk ${reldir}/${binname}
+    fi
 
     # Templates
     cp out/android/templates/*.apk ${templatesdir}/
